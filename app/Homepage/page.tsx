@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import HomeGifs from "../JsonFiles/home.json";
+import {home} from "../JsonFiles/page";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -8,8 +8,8 @@ const Homepage = () => {
     const router = useRouter()
   const [bgimg, setBgimg] = useState(
     JSON.stringify(
-      HomeGifs.images[
-        Math.floor(Math.random() * Math.floor(HomeGifs.images.length))
+      home.images[
+        Math.floor(Math.random() * Math.floor(home.images.length))
       ]
     )
   );
