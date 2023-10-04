@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import {home} from "../JsonFiles/page";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import {Logo} from '../assets/page'
 
 const Homepage = () => {
     const router = useRouter()
@@ -28,8 +30,13 @@ const Homepage = () => {
         style={stl}
         className="h-screen w-screen flex justify-center items-center"
       >
-        <div className="container backdrop-blur-xl rounded-lg w-[40%] h-[600px]">
+        <div className="container backdrop-blur-xl rounded-lg w-[40%] h-[600px] p-4">
           <div className="Ucon h-[30%] flex justify-center items-center shadow-lg	">
+          <Image
+              src={Logo}
+              alt="computer"
+              className="max-w-[100%] max-h-[100%]"
+            ></Image>
             <h1 className=" text-9xl text-indigo-100">
               S<span className="text-sm">tone</span> 
               P<span className="text-sm">apper</span>
