@@ -2,15 +2,16 @@
 import React, { useState, useEffect } from "react";
 import bg from "../assets/bg.gif";
 import pfp from "../assets/pfp.jpg";
-import PaL from "../assets/PaL.png";
-import ScL from "../assets/ScL.png";
-import StL from "../assets/StL.png";
-import PaR from "../assets/PaR.png";
-import ScR from "../assets/ScR.png";
-import StR from "../assets/StR.png";
+import PaL from "../assets/PaLx.png";
+import ScL from "../assets/ScLx.png";
+import StL from "../assets/StLx.png";
+import PaR from "../assets/PaRx.png";
+import ScR from "../assets/ScRx.png";
+import StR from "../assets/StRx.png";
 import Up from "../assets/green-up.png";
 import Down from "../assets/red-down.png";
 import Equal from "../assets/equal.png";
+import kuchni from "../assets/Logo.png";
 import game from "../JsonFiles/game.json";
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
@@ -20,7 +21,7 @@ const Gamepage = () => {
   const [comHand, setComHand] = useState<StaticImageData | string>(PaR);
   const [youScore, setYouScore] = useState<number>(5);
   const [comScore, setComScore] = useState<number>(5);
-  const [res, setRes] = useState<StaticImageData | string>(Equal);
+  const [res, setRes] = useState<StaticImageData | string>(kuchni);
   const [resVisible, setResVisible] = useState<Boolean>(false);
   //useeffect for animation
   useEffect(() => {
@@ -66,23 +67,27 @@ const Gamepage = () => {
     setYouScore(youScore - 1);
     setComScore(comScore + 1);
   };
+
   useEffect(() => {
-    let visi: NodeJS.Timeout;
-    setResVisible(true);
-    visi = setTimeout(() => {
-      setResVisible(false);
-    }, 1500);
-    return () => {
-      clearTimeout(visi);
-    };
+    if (res != kuchni) {
+      let visi: NodeJS.Timeout;
+      setResVisible(true);
+      visi = setTimeout(() => {
+        setResVisible(false);
+      }, 250);
+      return () => {
+        clearTimeout(visi);
+      };
+    }
   }, [res]);
+
   const router = useRouter();
   useEffect(() => {
     if (youScore == 10) {
       if (localStorage.getItem("Losses") == null) {
         localStorage.setItem("Losses", "0");
       }
-      const wins:(string | null)=localStorage.getItem("Wins")
+      const wins: string | null = localStorage.getItem("Wins");
       if (wins) {
         localStorage.setItem("Wins", JSON.stringify(parseInt(wins) + 1));
       } else {
@@ -94,7 +99,7 @@ const Gamepage = () => {
       if (localStorage.getItem("Wins") == null) {
         localStorage.setItem("Wins", "0");
       }
-      const Losses:(string | null)=localStorage.getItem("Losses")
+      const Losses: string | null = localStorage.getItem("Losses");
       if (Losses) {
         localStorage.setItem("Losses", JSON.stringify(parseInt(Losses) + 1));
       } else {
@@ -147,6 +152,7 @@ const Gamepage = () => {
   const onclickHandle = (element: any) => {
     setYouHand(element);
     shuffleComHand();
+    setRes(kuchni);
   };
   useEffect(() => {
     result(youHand, comHand);
