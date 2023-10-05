@@ -1,74 +1,108 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { bg, pfp, PaL, ScL, StL, PaR, ScR, StR ,Up , Down , Equal } from "../assets/page";
-import { game } from "../JsonFiles/page";
+import bg from "../assets/bg.gif";
+import pfp from "../assets/pfp.jpg";
+import PaL from "../assets/PaL.png";
+import ScL from "../assets/ScL.png";
+import StL from "../assets/StL.png";
+import PaR from "../assets/PaR.png";
+import ScR from "../assets/ScR.png";
+import StR from "../assets/StR.png";
+import Up from "../assets/green-up.png";
+import Down from "../assets/red-down.png";
+import Equal from "../assets/equal.png";
+import game from "../JsonFiles/game.json";
 import Image, { StaticImageData } from "next/image";
-
+import { useRouter } from "next/navigation";
 const Gamepage = () => {
-  const [youHand, setYouHand] = useState<StaticImageData | undefined>(PaL);
-  const [comHand, setComHand] = useState<StaticImageData | undefined>(PaR);
+  //states
+  const [youHand, setYouHand] = useState<StaticImageData | string>(PaL);
+  const [comHand, setComHand] = useState<StaticImageData | string>(PaR);
   const [youScore, setYouScore] = useState<number>(5);
   const [comScore, setComScore] = useState<number>(5);
-  const [res, setRes] = useState<StaticImageData | undefined>();
+  const [res, setRes] = useState<StaticImageData | string>(Equal);
   const [resVisible, setResVisible] = useState<Boolean>(false);
-
+  //useeffect for animation
   useEffect(() => {
-    let animationTimeout;
+    let animationTimeout: NodeJS.Timeout;
 
     // Add the class to trigger the animation
-    document.getElementById("youHand").classList.remove("animate-wiggle");
-    document.getElementById("comHand").classList.remove("animate-wiggle");
-    document.getElementById("youHand").classList.add("animate-fade");
-    document.getElementById("comHand").classList.add("animate-fade");
+    const youHandElement = document.getElementById("youHand");
+    const comHandElement = document.getElementById("comHand");
 
-    // Set a timeout to remove the class after the animation duration (in milliseconds)
-    animationTimeout = setTimeout(() => {
-      document.getElementById("youHand").classList.remove("animate-fade");
-      document.getElementById("comHand").classList.remove("animate-fade");
-      document.getElementById("youHand").classList.add("animate-wiggle");
-      document.getElementById("comHand").classList.add("animate-wiggle");
-    }, 1000); // Change 1000 to match your animation duration in milliseconds
-    // Clean up the timeout if the component unmounts or if isActive changes before the animation completes
+    if (youHandElement && comHandElement) {
+      youHandElement.classList.remove("animate-wiggle");
+      comHandElement.classList.remove("animate-wiggle");
+      youHandElement.classList.add("animate-fade");
+      comHandElement.classList.add("animate-fade");
+
+      // Set a timeout to remove the class after the animation duration (in milliseconds)
+      animationTimeout = setTimeout(() => {
+        youHandElement.classList.remove("animate-fade");
+        comHandElement.classList.remove("animate-fade");
+        youHandElement.classList.add("animate-wiggle");
+        comHandElement.classList.add("animate-wiggle");
+      }, 1000); // Change 1000 to match your animation duration in milliseconds
+      // Clean up the timeout if the component unmounts or if isActive changes before the animation completes
+    }
     return () => {
       clearTimeout(animationTimeout);
     };
   }, [youHand, comHand]);
 
-  const DisplayResult = (result: string) => {};
-
-  const gameEnd = (you: number, com: number) => {};
-
   const DrawResult = () => {
     //display Result
     setRes(Equal);
-    DisplayResult("Draw");
   };
   const WinResult = () => {
     //Display Result
-    DisplayResult("Win");
     setRes(Up);
     setYouScore(youScore + 1);
     setComScore(comScore - 1);
   };
   const LossResult = () => {
     //Display Result
-    DisplayResult("Loss");
     setRes(Down);
     setYouScore(youScore - 1);
     setComScore(comScore + 1);
   };
-useEffect(()=>{
-  let visi;
-  setResVisible(true)
+  useEffect(() => {
+    let visi: NodeJS.Timeout;
+    setResVisible(true);
     visi = setTimeout(() => {
       setResVisible(false);
     }, 1500);
     return () => {
       clearTimeout(visi);
     };
-},[res])
+  }, [res]);
+  const router = useRouter();
   useEffect(() => {
-    gameEnd(youScore, comScore);
+    if (youScore == 10) {
+      if (localStorage.getItem("Losses") == null) {
+        localStorage.setItem("Losses", "0");
+      }
+      const wins:(string | null)=localStorage.getItem("Wins")
+      if (wins) {
+        localStorage.setItem("Wins", JSON.stringify(parseInt(wins) + 1));
+      } else {
+        localStorage.setItem("Wins", "0");
+      }
+      localStorage.setItem("result", "WON");
+      router.push("/Resultpage");
+    } else if (comScore == 10) {
+      if (localStorage.getItem("Wins") == null) {
+        localStorage.setItem("Wins", "0");
+      }
+      const Losses:(string | null)=localStorage.getItem("Losses")
+      if (Losses) {
+        localStorage.setItem("Losses", JSON.stringify(parseInt(Losses) + 1));
+      } else {
+        localStorage.setItem("Losses", "0");
+      }
+      localStorage.setItem("result", "LOST");
+      router.push("/Resultpage");
+    }
   }, [youScore, comScore]);
 
   const result = (element1: any, element2: any) => {
@@ -127,7 +161,13 @@ useEffect(()=>{
       }}
       className="w-screen h-screen flex flex-row"
     >
-      <Image src={res}  className={`${resVisible? "":"hidden"} absolute z- top-0 bottom-0 left-0 right-0 10 m-auto drop-shadow-2xl drop-shadow-black backdrop-blur-md p-3 rounded-md h-[200px] w-[200px]`}/>
+      <Image
+        src={res}
+        alt="result"
+        className={`${
+          resVisible ? "" : "hidden"
+        } absolute z- top-0 bottom-0 left-0 right-0 10 m-auto drop-shadow-2xl drop-shadow-black backdrop-blur-md p-3 rounded-md h-[200px] w-[200px]`}
+      />
       <div className="leftBox w-[50%] h-screen">
         <div className="aboutPlayer h-[15%] flex backdrop-blur-sm shadow-md">
           <div className="pfp w-[15%]">
