@@ -1,3 +1,11 @@
+![Logo](/app/assets/Logo.png)
+
+
+# SPS5
+Stone Paper Scissors Game.
+Hard to win 5 Rounds game, For nostalgia❤️‍🔥
+
+## Installation
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
