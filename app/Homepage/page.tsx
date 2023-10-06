@@ -23,8 +23,8 @@ const Homepage: React.FC = () => {
         style={stl}
         className="h-screen w-screen flex justify-center items-center"
       >
-        <div className="container backdrop-blur-xl rounded-lg w-[40%] h-[600px] p-4">
-          <div className="Ucon h-[30%] flex justify-center items-center shadow-lg	">
+        <div className="container backdrop-blur-xl rounded-lg w-[40%] h-[600px] p-4 min-w-[850px]">
+          <div className="Ucon h-[30%] flex justify-center items-center shadow-lg	min-w-[800px]">
             <Image
               src={Logo}
               alt="computer"

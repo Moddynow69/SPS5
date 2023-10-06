@@ -83,27 +83,23 @@ const Gamepage: React.FC = () => {
 
   const router = useRouter();
   useEffect(() => {
+    if (localStorage.getItem("Losses") == null) {
+      localStorage.setItem("Losses", "0");
+    }
+    if (localStorage.getItem("Wins") == null) {
+      localStorage.setItem("Wins", "0");
+    }
     if (youScore == 10) {
-      if (localStorage.getItem("Losses") == null) {
-        localStorage.setItem("Losses", "0");
-      }
       const wins: string | null = localStorage.getItem("Wins");
       if (wins) {
         localStorage.setItem("Wins", JSON.stringify(parseInt(wins) + 1));
-      } else {
-        localStorage.setItem("Wins", "0");
       }
       localStorage.setItem("result", "WON");
       router.push("/Resultpage");
     } else if (comScore == 10) {
-      if (localStorage.getItem("Wins") == null) {
-        localStorage.setItem("Wins", "0");
-      }
       const Losses: string | null = localStorage.getItem("Losses");
       if (Losses) {
         localStorage.setItem("Losses", JSON.stringify(parseInt(Losses) + 1));
-      } else {
-        localStorage.setItem("Losses", "0");
       }
       localStorage.setItem("result", "LOST");
       router.push("/Resultpage");
