@@ -14,7 +14,7 @@ const Resultpage: React.FC = () => {
         setLossStr(localStorage.getItem("Losses"));
     },[])
   const [bgimg, setBgimg] = useState<StaticImageData | string>();
-  const [curResult, setResult] = useState<string | null>(res ? res : "WON");
+  const [curResult, setResult] = useState<string | null>(res);
   const Wins: number = parseInt(winsString ? winsString : "0");
   const Losses: number = parseInt(lossesString ? lossesString : "0");
 
