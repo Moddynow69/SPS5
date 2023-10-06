@@ -8,15 +8,16 @@ const Resultpage: React.FC = () => {
     const [res, setRes] = useState<string | null>();
     const [winsString, setWinStr] = useState<string | null>();
     const [lossesString, setLossStr] = useState<string | null>();
+  const [bgimg, setBgimg] = useState<StaticImageData | string>();
+  const [curResult, setResult] = useState<string | null>(res ? res : "");
+  const Wins: number = parseInt(winsString ? winsString : "0");
+  const Losses: number = parseInt(lossesString ? lossesString : "0");
     useEffect(()=>{
         setRes(localStorage.getItem("result"));
         setWinStr(localStorage.getItem("Wins"));
         setLossStr(localStorage.getItem("Losses"));
+        setResult(res?res:"");
     },[])
-  const [bgimg, setBgimg] = useState<StaticImageData | string>();
-  const [curResult, setResult] = useState<string | null>(res);
-  const Wins: number = parseInt(winsString ? winsString : "0");
-  const Losses: number = parseInt(lossesString ? lossesString : "0");
 
 
   useEffect(() => {
