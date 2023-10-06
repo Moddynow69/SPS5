@@ -15,7 +15,7 @@ import kuchni from "../assets/Logo.png";
 import game from "../JsonFiles/game.json";
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
-const Gamepage = () => {
+const Gamepage: React.FC = () => {
   //states
   const [youHand, setYouHand] = useState<StaticImageData | string>(PaL);
   const [comHand, setComHand] = useState<StaticImageData | string>(PaR);

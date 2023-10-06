@@ -5,22 +5,21 @@ import Logo from "../assets/Logo.png";
 import game from "../JsonFiles/game.json";
 import Link from "next/link";
 const Resultpage: React.FC = () => {
-    const [res, setRes] = useState<string | null>();
-    const [winsString, setWinStr] = useState<string | null>();
-    const [lossesString, setLossStr] = useState<string | null>();
-    useEffect(()=>{
-        setRes(localStorage.getItem("result"));
-        setWinStr(localStorage.getItem("Wins"));
-        setLossStr(localStorage.getItem("Losses"));
-    },[])
+  const [res, setRes] = useState<string | null>();
+  const [winsString, setWinStr] = useState<string | null>();
+  const [lossesString, setLossStr] = useState<string | null>();
+  useEffect(() => {
+    setRes(localStorage.getItem("result"));
+    setWinStr(localStorage.getItem("Wins"));
+    setLossStr(localStorage.getItem("Losses"));
+  }, []);
   const [bgimg, setBgimg] = useState<StaticImageData | string>();
   const [curResult, setResult] = useState<string | null>(res ? res : "WON");
   const Wins: number = parseInt(winsString ? winsString : "0");
   const Losses: number = parseInt(lossesString ? lossesString : "0");
 
-
   useEffect(() => {
-    setResult(res ? res : "WON")
+    setResult(res ? res : "WON");
     const result: number = localStorage.getItem("result") == "WON" ? 4 : 0;
     console.log(result);
     console.log(localStorage.getItem("result"));
@@ -69,7 +68,7 @@ const Resultpage: React.FC = () => {
               </span>
             </div>
             <Link
-              href="/Homepage"
+              href="/"
               className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-5xl font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400"
             >
               <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">

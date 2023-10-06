@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import home from "../JsonFiles/home.json";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "../assets/Logo.png"
+import Logo from "../assets/Logo.png";
 
-const Homepage = () => {
+const Homepage: React.FC = () => {
   const [bgimg, setBgimg] = useState(
     JSON.stringify(
       home.images[Math.floor(Math.random() * Math.floor(home.images.length))]
